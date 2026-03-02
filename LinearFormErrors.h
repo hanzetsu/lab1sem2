@@ -1,5 +1,4 @@
-#ifndef VECTORERRORS_H
-#define VECTORERRORS_H
+#pragma once
 
 typedef enum {
     VECTOR_OPERATION_OK = 0,
@@ -7,6 +6,4 @@ typedef enum {
     VECTOR_NOT_DEFINED = 200,
     OPERATION_NOT_DEFINED = 201,
     INCOMPATIBLE_VECTOR_TYPES = 300
-} VectorErrors;
-
-#endif // VECTORERRORS_H
+} LinearFormErrors;

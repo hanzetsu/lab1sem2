@@ -1,18 +1,19 @@
 #ifndef TYPEINFO_H
 #define TYPEINFO_H
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-//сигнатура для бинарных операций
 typedef void (*BinaryOperator)(const void* arg1, const void* arg2, void* result);
-
+typedef void (*UnaryOperator)(const void* lf, void* n, void* result); // РЅР°РґРѕ СѓС‚РѕС‡РЅРёС‚СЊ n
 typedef struct {
-    size_t size;
+    uint64_t size;
     BinaryOperator add;
-    BinaryOperator multiply;
+    UnaryOperator multiplyByInt;
+    UnaryOperator multiplyByDouble;
     void (*print)(const void*);
 } TypeInfo;
 
-#endif // TYPEINFO_H
+#endif 

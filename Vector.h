@@ -1,22 +1,20 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#pragma once
 
 #include "TypeInfo.h"
 #include "Integer.h"
 #include "Double.h"
-#include "VectorErrors.h"
+#include "LinearFormErrors.h"
 
 typedef struct {
-    void* x;
-    void* y;
-    void* z;
+    void* coeffs;
+    uint64_t n;
     TypeInfo* typeInfo;
-} Vector;
+} LinearForm;
 
-Vector* createVector(TypeInfo* typeInfo, void* x, void* y, void* z, VectorErrors* operationResult);
-void freeVector(Vector* vector);
-VectorErrors addVectors(const Vector* v1, const Vector* v2, Vector* result);
-VectorErrors multiplyVectors(const Vector* v1, const Vector* v2, Vector* result);
-VectorErrors printVector(const Vector* vector);
+LinearForm* createLinearForm(TypeInfo* typeInfo, void* coeffs, uint64_t n, LinearFormErrors* operationResult);
+void freeLinearForm(LinearForm* lf);
+LinearFormErrors addLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
+LinearFormErrors multiplyByIntLinearForm(const LinearForm* lf, int x, LinearForm* result);
+LinearFormErrors multiplyByDoubleLinearForm(const LinearForm* lf, double x, LinearForm* result);
+LinearFormErrors printLinearForm(const LinearForm* lf);
 
-#endif // VECTOR_H

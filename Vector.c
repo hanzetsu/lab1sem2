@@ -2,14 +2,14 @@
 
 
 
-Vector* createVector(TypeInfo* typeInfo, void* x, void* y, void* z, VectorErrors* operationResult) {
-    Vector* vector = (Vector*)malloc(sizeof(Vector));
-    if (vector == NULL) {
+LinearForm* createLinearForm(TypeInfo* typeInfo, void* coeffs, uint64_t n, LinearFormErrors* operationResult) {
+    LinearForm* lf = (LinearForm*)malloc(sizeof(*lf));
+    if (lf == NULL) {
         *operationResult = MEMORY_ALLOCATION_FAILED;
         return NULL;
     }
 
-    vector->typeInfo = typeInfo;
+    lf->typeInfo = typeInfo;
     vector->x = malloc(typeInfo->size);
     vector->y = malloc(typeInfo->size);
     vector->z = malloc(typeInfo->size);
@@ -41,7 +41,7 @@ VectorErrors addVectors(const Vector* v1, const Vector* v2, Vector* result) {
 }
 
 VectorErrors multiplyVectors(const Vector* v1, const Vector* v2, Vector* result) {
-    //аналогично
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     return VECTOR_OPERATION_OK;
 }
 
