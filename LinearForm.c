@@ -42,13 +42,19 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
     if (a->typeInfo != b->typeInfo || a->typeInfo != result->typeInfo)
         return INCOMPATIBLE_LINEARFORM_TYPES;
     uint64_t max_n = MAX(a->n, b->n);
-    if(a->typeInfo->add == NULL) return OPERATION_NOT_DEFINED;
-    if(result->typeInfo->)
-    for (uint64_t i = 0; i < n + 1; i++)
+    if (result->n < max_n)
+        return DIMENSION_MISMATCH;
+    if (a->typeInfo->add == NULL)
+        return OPERATION_NOT_DEFINED;
+    for (uint64_t i = 0; i < max_n + 1; i++)
     {
-        if (a->typeInfo->addhjk)
-            result->coeffs[i] = a->coeffs[i] + b->coeffs[i];
-    } // HZ
+        if (a->n >= i && b->n >= i)
+            a->typeInfo->add((char *)a->coeffs + (i * a->typeInfo->size), (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
+        if (a->n < i)
+            a->typeInfo->add(0, b, result[i]);
+        if (b->n < i)
+            a->typeInfo->add(a, 0, result[i]);
+    }
     return LINEARFORM_OPERATION_OK;
 }
 
