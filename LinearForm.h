@@ -5,6 +5,7 @@
 #include "Double.h"
 #include "LinearFormErrors.h"
 #define MAX(a,b) ((a)>(b) ? (a) : (b))
+#define MIN(a,b) ((a)<(b) ? (a) : (b))
 typedef struct {
     void* coeffs;
     uint64_t n;

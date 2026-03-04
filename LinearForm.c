@@ -46,15 +46,17 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
         return DIMENSION_MISMATCH;
     if (a->typeInfo->add == NULL)
         return OPERATION_NOT_DEFINED;
+    void* zero = calloc(1,a->typeInfo->size);
     for (uint64_t i = 0; i < max_n + 1; i++)
     {
         if (a->n >= i && b->n >= i)
             a->typeInfo->add((char *)a->coeffs + (i * a->typeInfo->size), (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
-        if (a->n < i)
-            a->typeInfo->add(0, b, result[i]);
-        if (b->n < i)
-            a->typeInfo->add(a, 0, result[i]);
+        else if (a->n < i)
+            a->typeInfo->add(zero, (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
+        else if (b->n < i)
+            a->typeInfo->add((char *)a->coeffs + (i * a->typeInfo->size), zero, (char *)result->coeffs + (i * result->typeInfo->size));
     }
+    free(zero);
     return LINEARFORM_OPERATION_OK;
 }
 
