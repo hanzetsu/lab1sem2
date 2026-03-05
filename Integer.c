@@ -20,7 +20,7 @@ void intPrint(const void* data) {
 }
 
 void intScan(void* coeff) {
-    scanf("%d", &coeff);
+    scanf("%d", (int*) coeff);
 }
 
 TypeInfo* GetIntTypeInfo() {

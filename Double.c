@@ -6,7 +6,7 @@ static TypeInfo* DOUBLE_TYPE_INFO = NULL;
 void doubleAdd(const void* arg1, const void* arg2, void* result) {
     *(double*)result = *(double*)arg1 + *(double*)arg2;
 }
-void intSubtract(const void* arg1, const void* arg2, void* result) {
+void doubleSubtract(const void* arg1, const void* arg2, void* result) {
     *(double*)result = *(double*)arg1 - *(double*)arg2;
 }
 
@@ -19,7 +19,7 @@ void doublePrint(const void* data) {
 }
 
 void doubleScan(void* coeff) {
-    scanf("%f", &coeff);
+    scanf("%lf", (double*)coeff);
 }
 
 TypeInfo* GetDoubleTypeInfo() {

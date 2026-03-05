@@ -18,5 +18,6 @@ void freeLinearForm(LinearForm* lf);
 LinearFormErrors addLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
 LinearFormErrors subtractLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
 LinearFormErrors multiplyScalarLinearForm(const LinearForm* lf, const void* scalar, LinearForm* result);
+LinearFormErrors evaluateLinearForm(const LinearForm* lf, const void* args, void* result);
 LinearFormErrors printLinearForm(const LinearForm* lf);
 

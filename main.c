@@ -66,6 +66,7 @@ int main()
         printf("Форма %u: ", i);
         printLinearForm(LinearForms[i]);
     }
+
     for (uint32_t i = 0; i < number_of_LinearForms; i++)
     {
         freeLinearForm(LinearForms[i]);

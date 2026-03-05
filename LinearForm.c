@@ -1,7 +1,7 @@
 #include "LinearForm.h"
 #include "TypeInfo.h"
 
-LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint64_t n, LinearFormErrors *operationResult)
+LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint32_t n, LinearFormErrors *operationResult)
 {
     LinearForm *lf = (LinearForm *)malloc(sizeof(*lf));
     if (lf == NULL)
@@ -16,7 +16,7 @@ LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint64_t n,
     if (lf->coeffs == NULL)
     {
         freeLinearForm(lf);
-        operationResult = MEMORY_ALLOCATION_FAILED;
+        *operationResult = MEMORY_ALLOCATION_FAILED;
         return NULL;
     }
     if (coeffs != NULL)
@@ -29,10 +29,11 @@ LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint64_t n,
     return lf;
 }
 
-void freeLinearForm(LinearForm *lf)
-{
-    free(lf->coeffs);
-    free(lf);
+void freeLinearForm(LinearForm *lf) {
+    if (lf) {
+        if (lf->coeffs) free(lf->coeffs);
+        free(lf);
+    }
 }
 
 LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, LinearForm *result)
@@ -42,7 +43,7 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
     if (a->typeInfo != b->typeInfo || a->typeInfo != result->typeInfo)
         return INCOMPATIBLE_LINEARFORM_TYPES;
     uint32_t max_n = MAX(a->n, b->n);
-    if (result->n < max_n)
+    if (result->n != max_n)
         return DIMENSION_MISMATCH;
     if (a->typeInfo->add == NULL)
         return OPERATION_NOT_DEFINED;
@@ -93,7 +94,7 @@ LinearFormErrors multiplyScalarLinearForm(const LinearForm* lf, const void* scal
         return DIMENSION_MISMATCH;
     if (lf->typeInfo->multiply == NULL)
         return OPERATION_NOT_DEFINED;
-    for (uint64_t i = 0; i <= lf->n; i++) {
+    for (uint32_t i = 0; i <= lf->n; i++) {
         const void* coeff_i = (const char *)lf->coeffs + (i*lf->typeInfo->size);
         void* res_i = (char*)result->coeffs + (i * result->typeInfo->size);
         lf->typeInfo->multiply(coeff_i, scalar, res_i);
