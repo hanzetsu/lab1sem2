@@ -22,7 +22,8 @@ int main()
 
     for (uint32_t i = 0; i < number_of_LinearForms; i++)
     {
-        printf("Выберите тип элементов для %u-ой линейной формы: 1 - целые, 2 - вещественные числа с плавающей запятой, 3 - комплексные\n", i);
+        uint32_t index = i + 1;
+        printf("Выберите тип элементов для %u-ой линейной формы: 1 - целые, 2 - вещественные числа с плавающей запятой, 3 - комплексные\n", index);
         uint32_t type_of_elements = 0;
         for (;;)
         {
@@ -54,7 +55,7 @@ int main()
             return 1;
         }
 
-        printf("Введите кол-во переменных для %u-ой линейной формы: ", i);
+        printf("Введите кол-во переменных для %u-ой линейной формы: ", index);
         uint32_t n = 0;
         scanf("%u", &n);
         fflush(stdin);
@@ -68,10 +69,11 @@ int main()
             return 1;
         }
 
-        for (uint32_t j = 0; j < number_of_coeffs; j++)
+        for (uint32_t j = 1; j <= number_of_coeffs; j++)
         {
-            printf("Введите %u коэффициент для %u-ой линейной формы: ", j, i);
-            typeinfo->scan((char *)temp + j * typeinfo->size);
+            printf("Введите %u коэффициент для %u-ой линейной формы: ", j, index);
+            // Исправление: записываем в (j-1)-й элемент
+            typeinfo->scan((char *)temp + (j-1) * typeinfo->size);
             fflush(stdin);
         }
 
@@ -90,7 +92,8 @@ int main()
     puts("\nСозданные линейные формы:");
     for (uint32_t i = 0; i < number_of_LinearForms; i++)
     {
-        printf("Форма %u: ", i);
+        // Выводим номер формы с 1
+        printf("Форма %u: ", i+1);
         printLinearForm(LinearForms[i]);
     }
 
@@ -114,16 +117,19 @@ int main()
         if (choice == 0) break;
 
         if (choice == 1 || choice == 2) {
-            int idx1, idx2;
-            printf("Введите индексы первой и второй формы (0..%u): ", number_of_LinearForms-1);
-            if (scanf("%d%d", &idx1, &idx2) != 2) {
+            int num1, num2;
+            printf("Введите номера первой и второй формы (1..%u): ", number_of_LinearForms);
+            if (scanf("%d%d", &num1, &num2) != 2) {
                 puts("Ошибка ввода.");
                 fflush(stdin);
                 continue;
             }
             fflush(stdin);
+            // Преобразуем номера в индексы массива
+            int idx1 = num1 - 1;
+            int idx2 = num2 - 1;
             if (idx1 < 0 || idx1 >= number_of_LinearForms || idx2 < 0 || idx2 >= number_of_LinearForms) {
-                puts("Неверный индекс");
+                puts("Неверный номер формы");
                 continue;
             }
             const LinearForm *a = LinearForms[idx1];
@@ -153,16 +159,17 @@ int main()
             }
         }
         else if (choice == 3) {
-            int idx;
-            printf("Введите индекс формы (0..%u): ", number_of_LinearForms-1);
-            if (scanf("%d", &idx) != 1) {
+            int num;
+            printf("Введите номер формы (1..%u): ", number_of_LinearForms);
+            if (scanf("%d", &num) != 1) {
                 puts("Ошибка ввода.");
                 fflush(stdin);
                 continue;
             }
             fflush(stdin);
+            int idx = num - 1;
             if (idx < 0 || idx >= number_of_LinearForms) {
-                puts("Неверный индекс");
+                puts("Неверный номер формы");
                 continue;
             }
             const LinearForm *lf = LinearForms[idx];
@@ -193,16 +200,17 @@ int main()
             free(scalar);
         }
         else if (choice == 4) {
-            int idx;
-            printf("Введите индекс формы (0..%u): ", number_of_LinearForms-1);
-            if (scanf("%d", &idx) != 1) {
+            int num;
+            printf("Введите номер формы (1..%u): ", number_of_LinearForms);
+            if (scanf("%d", &num) != 1) {
                 puts("Ошибка ввода.");
                 fflush(stdin);
                 continue;
             }
             fflush(stdin);
+            int idx = num - 1;
             if (idx < 0 || idx >= number_of_LinearForms) {
-                puts("Неверный индекс");
+                puts("Неверный номер формы");
                 continue;
             }
             const LinearForm *lf = LinearForms[idx];
