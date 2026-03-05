@@ -8,7 +8,7 @@
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
 typedef struct {
     void* coeffs;
-    uint64_t n;
+    uint32_t n;
     TypeInfo* typeInfo;
 } LinearForm;
 

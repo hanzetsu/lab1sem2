@@ -41,13 +41,13 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
         return LINEARFORM_NOT_DEFINED;
     if (a->typeInfo != b->typeInfo || a->typeInfo != result->typeInfo)
         return INCOMPATIBLE_LINEARFORM_TYPES;
-    uint64_t max_n = MAX(a->n, b->n);
+    uint32_t max_n = MAX(a->n, b->n);
     if (result->n < max_n)
         return DIMENSION_MISMATCH;
     if (a->typeInfo->add == NULL)
         return OPERATION_NOT_DEFINED;
     void* zero = calloc(1,a->typeInfo->size);
-    for (uint64_t i = 0; i < max_n + 1; i++)
+    for (uint32_t i = 0; i < max_n + 1; i++)
     {
         if (a->n >= i && b->n >= i)
             a->typeInfo->add((char *)a->coeffs + (i * a->typeInfo->size), (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
@@ -78,20 +78,19 @@ LinearFormErrors multiplyScalarLinearForm(const LinearForm* lf, const void* scal
     return LINEARFORM_OPERATION_OK;
 }
 
-VectorErrors printVector(const Vector *vector)
+LinearFormErrors printLinearForm(const LinearForm *lf)
 {
-    if (vector == NULL)
-        return VECTOR_NOT_DEFINED;
-    if (vector->typeInfo->print == NULL)
+    if (lf == NULL)
+        return LINEARFORM_NOT_DEFINED;
+    if (lf->typeInfo->print == NULL)
         return OPERATION_NOT_DEFINED;
-
-    printf("Vector: (");
-    vector->typeInfo->print(vector->x);
-    printf(", ");
-    vector->typeInfo->print(vector->y);
-    printf(", ");
-    vector->typeInfo->print(vector->z);
-    printf(")\n");
-
-    return VECTOR_OPERATION_OK;
+    lf->typeInfo->print(lf->coeffs);
+    for (uint32_t i = 1; i <= lf->n; i++) {
+        printf (" + ");
+        const void *coeff = (const char*)lf->coeffs + i * lf->typeInfo->size;
+        lf->typeInfo->print (coeff);
+        printf("*x%u", i);
+    }
+    putchar('\n');
+    return LINEARFORM_OPERATION_OK;
 }
