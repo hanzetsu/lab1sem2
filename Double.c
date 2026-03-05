@@ -6,6 +6,9 @@ static TypeInfo* DOUBLE_TYPE_INFO = NULL;
 void doubleAdd(const void* arg1, const void* arg2, void* result) {
     *(double*)result = *(double*)arg1 + *(double*)arg2;
 }
+void intSubtract(const void* arg1, const void* arg2, void* result) {
+    *(double*)result = *(double*)arg1 - *(double*)arg2;
+}
 
 void doubleMultiply(const void* arg1, const void* arg2, void* result) {
     *(double*)result = *(double*)arg1 * *(double*)arg2;
@@ -20,6 +23,7 @@ TypeInfo* GetDoubleTypeInfo() {
         DOUBLE_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
         DOUBLE_TYPE_INFO->size = sizeof(double);
         DOUBLE_TYPE_INFO->add = doubleAdd;
+        DOUBLE_TYPE_INFO->subtract = doubleSubtract;
         DOUBLE_TYPE_INFO->multiply = doubleMultiply;
         DOUBLE_TYPE_INFO->print = doublePrint;
     }

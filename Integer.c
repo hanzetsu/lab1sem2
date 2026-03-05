@@ -7,6 +7,10 @@ void intAdd(const void* arg1, const void* arg2, void* result) {
     *(int*)result = *(int*)arg1 + *(int*)arg2;
 }
 
+void intSubtract(const void* arg1, const void* arg2, void* result) {
+    *(int*)result = *(int*)arg1 - *(int*)arg2;
+}
+
 void intMultiply(const void* arg1, const void* arg2, void* result) {
     *(int*)result = *(int*)arg1 * *(int*)arg2;
 }
@@ -20,6 +24,7 @@ TypeInfo* GetIntTypeInfo() {
         INT_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
         INT_TYPE_INFO->size = sizeof(int);
         INT_TYPE_INFO->add = intAdd;
+        INT_TYPE_INFO->subtract = intSubtract;
         INT_TYPE_INFO->multiply = intMultiply;
         INT_TYPE_INFO->print = intPrint;
     }

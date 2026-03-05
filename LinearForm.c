@@ -12,7 +12,7 @@ LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint64_t n,
 
     lf->typeInfo = typeInfo;
     lf->n = n;
-    lf->coeffs = malloc(typeInfo->size * lf->(n + 1));
+    lf->coeffs = malloc(typeInfo->size * (lf->n + 1));
     if (lf->coeffs == NULL)
     {
         freeLinearForm(lf);
@@ -55,6 +55,29 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
             a->typeInfo->add(zero, (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
         else if (b->n < i)
             a->typeInfo->add((char *)a->coeffs + (i * a->typeInfo->size), zero, (char *)result->coeffs + (i * result->typeInfo->size));
+    }
+    free(zero);
+    return LINEARFORM_OPERATION_OK;
+}
+LinearFormErrors subtractLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result) {
+        if (a == NULL || b == NULL || result == NULL)
+        return LINEARFORM_NOT_DEFINED;
+    if (a->typeInfo != b->typeInfo || a->typeInfo != result->typeInfo)
+        return INCOMPATIBLE_LINEARFORM_TYPES;
+    if (result->n < a->n || result->n < b->n)
+        return DIMENSION_MISMATCH;
+    if (a->typeInfo->subtract == NULL)
+        return OPERATION_NOT_DEFINED;
+    void* zero = calloc(1,a->typeInfo->size);
+    uint32_t max_n = MAX(a->n,b->n);
+    for (uint32_t i = 0; i < max_n + 1; i++)
+    {
+        if (a->n >= i && b->n >= i)
+            a->typeInfo->subtract((char *)a->coeffs + (i * a->typeInfo->size), (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
+        else if (a->n < i)
+            a->typeInfo->subtract(zero, (char *)b->coeffs + (i * b->typeInfo->size), (char *)result->coeffs + (i * result->typeInfo->size));
+        else if (b->n < i)
+            a->typeInfo->subtract((char *)a->coeffs + (i * a->typeInfo->size), zero, (char *)result->coeffs + (i * result->typeInfo->size));
     }
     free(zero);
     return LINEARFORM_OPERATION_OK;
