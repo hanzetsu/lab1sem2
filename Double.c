@@ -18,6 +18,10 @@ void doublePrint(const void* data) {
     printf("%lf", *(const double*)data);
 }
 
+void doubleScan(void* coeff) {
+    scanf("%f", &coeff);
+}
+
 TypeInfo* GetDoubleTypeInfo() {
     if (DOUBLE_TYPE_INFO == NULL) {
         DOUBLE_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
@@ -26,6 +30,7 @@ TypeInfo* GetDoubleTypeInfo() {
         DOUBLE_TYPE_INFO->subtract = doubleSubtract;
         DOUBLE_TYPE_INFO->multiply = doubleMultiply;
         DOUBLE_TYPE_INFO->print = doublePrint;
+        DOUBLE_TYPE_INFO->scan = doubleScan;
     }
     return DOUBLE_TYPE_INFO;
 }

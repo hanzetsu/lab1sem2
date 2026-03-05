@@ -13,5 +13,6 @@ typedef struct {
     BinaryOperator subtract; 
     BinaryOperator multiply;
     void (*print)(const void*);
+    void (*scan)(void*);
 } TypeInfo;
 #endif 

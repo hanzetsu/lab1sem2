@@ -19,6 +19,10 @@ void intPrint(const void* data) {
     printf("%d", *(const int*)data);
 }
 
+void intScan(void* coeff) {
+    scanf("%d", &coeff);
+}
+
 TypeInfo* GetIntTypeInfo() {
     if (INT_TYPE_INFO == NULL) {
         INT_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
@@ -27,6 +31,7 @@ TypeInfo* GetIntTypeInfo() {
         INT_TYPE_INFO->subtract = intSubtract;
         INT_TYPE_INFO->multiply = intMultiply;
         INT_TYPE_INFO->print = intPrint;
+        INT_TYPE_INFO->scan = intScan;
     }
     return INT_TYPE_INFO;
 }
