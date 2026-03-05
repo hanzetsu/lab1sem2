@@ -60,9 +60,22 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
     return LINEARFORM_OPERATION_OK;
 }
 
-VectorErrors multiplyVectors(const Vector *a, const Vector *b, Vector *result)
+LinearFormErrors multiplyScalarLinearForm(const LinearForm* lf, const void* scalar, LinearForm* result)
 {
-    return VECTOR_OPERATION_OK;
+    if (lf == NULL || scalar == NULL || result == NULL)
+        return LINEARFORM_NOT_DEFINED;
+    if (lf->typeInfo != result->typeInfo)
+        return INCOMPATIBLE_LINEARFORM_TYPES;
+    if (result->n != lf->n)
+        return DIMENSION_MISMATCH;
+    if (lf->typeInfo->multiply == NULL)
+        return OPERATION_NOT_DEFINED;
+    for (uint64_t i = 0; i <= lf->n; i++) {
+        const void* coeff_i = (const char *)lf->coeffs + (i*lf->typeInfo->size);
+        void* res_i = (char*)result->coeffs + (i * result->typeInfo->size);
+        lf->typeInfo->multiply(coeff_i, scalar, res_i);
+    }
+    return LINEARFORM_OPERATION_OK;
 }
 
 VectorErrors printVector(const Vector *vector)
