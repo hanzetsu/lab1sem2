@@ -9,7 +9,7 @@
 typedef void (*BinaryOperator)(const void* arg1, const void* arg2, void* result);
 typedef struct {
     uint64_t size;
-    BinaryOperator add;
+    BinaryOperator sum;
     BinaryOperator subtract; 
     BinaryOperator multiply;
     void (*print)(const void*);

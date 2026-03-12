@@ -9,6 +9,7 @@ set(LIB_SOURCES
     Double.c
     Integer.c
     LinearForm.c
+    Interface.c
 )
 
 add_executable(linearform main.c ${LIB_SOURCES})

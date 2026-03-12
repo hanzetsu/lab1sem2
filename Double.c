@@ -1,9 +1,10 @@
 #include "double.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 static TypeInfo* DOUBLE_TYPE_INFO = NULL;
 
-
-void doubleAdd(const void* arg1, const void* arg2, void* result) {
+void doubleSum(const void* arg1, const void* arg2, void* result) {
     *(double*)result = *(double*)arg1 + *(double*)arg2;
 }
 void doubleSubtract(const void* arg1, const void* arg2, void* result) {
@@ -19,14 +20,33 @@ void doublePrint(const void* data) {
 }
 
 void doubleScan(void* coeff) {
-    scanf("%lf", (double*)coeff);
+    double *val = (double *)coeff;
+    char next;
+    for (;;)
+    {
+        if (scanf("%lf%c", val, &next) == 2 && (next == '\n' || next == ' '))
+        {
+            if (next == ' ')
+            {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+            return;
+        }
+        else
+        {
+            puts("Ошибка: некорректный ввод. Ожидается вещественное число.");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+    }
 }
 
 TypeInfo* GetDoubleTypeInfo() {
     if (DOUBLE_TYPE_INFO == NULL) {
         DOUBLE_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
         DOUBLE_TYPE_INFO->size = sizeof(double);
-        DOUBLE_TYPE_INFO->add = doubleAdd;
+        DOUBLE_TYPE_INFO->sum = doubleSum;
         DOUBLE_TYPE_INFO->subtract = doubleSubtract;
         DOUBLE_TYPE_INFO->multiply = doubleMultiply;
         DOUBLE_TYPE_INFO->print = doublePrint;

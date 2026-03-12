@@ -8,7 +8,7 @@ typedef struct {
     double imag;
 } Complex;
 
-void complexAdd(const void* arg1, const void* arg2, void* result);
+void complexSum(const void* arg1, const void* arg2, void* result);
 void complexSubtract(const void* arg1, const void* arg2, void* result);
 void complexMultiply(const void* arg1, const void* arg2, void* result);
 void complexPrint(const void* data);

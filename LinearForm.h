@@ -15,7 +15,7 @@ typedef struct {
 
 LinearForm* createLinearForm(TypeInfo* typeInfo, void* coeffs, uint32_t n, LinearFormErrors* operationResult);
 void freeLinearForm(LinearForm* lf);
-LinearFormErrors addLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
+LinearFormErrors sumLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
 LinearFormErrors subtractLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
 LinearFormErrors multiplyScalarLinearForm(const LinearForm* lf, const void* scalar, LinearForm* result);
 LinearFormErrors evaluateLinearForm(const LinearForm* lf, const void* args, void* result);

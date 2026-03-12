@@ -44,7 +44,7 @@ void freeLinearForm(LinearForm *lf)
     }
 }
 
-LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, LinearForm *result)
+LinearFormErrors sumLinearForms(const LinearForm *a, const LinearForm *b, LinearForm *result)
 {
     if (a == NULL || b == NULL || result == NULL)
         return LINEARFORM_NOT_DEFINED;
@@ -53,7 +53,7 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
     uint32_t max_n = MAX(a->n, b->n);
     if (result->n != max_n)
         return DIMENSION_MISMATCH;
-    if (a->typeInfo->add == NULL)
+    if (a->typeInfo->sum == NULL)
         return OPERATION_NOT_DEFINED;
 
     void *zero = calloc(1, a->typeInfo->size);
@@ -63,15 +63,15 @@ LinearFormErrors addLinearForms(const LinearForm *a, const LinearForm *b, Linear
     for (uint32_t i = 0; i <= max_n; i++)
     {
         if (a->n >= i && b->n >= i)
-            a->typeInfo->add((char *)a->coeffs + i * a->typeInfo->size,
+            a->typeInfo->sum((char *)a->coeffs + i * a->typeInfo->size,
                              (char *)b->coeffs + i * b->typeInfo->size,
                              (char *)result->coeffs + i * result->typeInfo->size);
         else if (a->n < i)
-            a->typeInfo->add(zero,
+            a->typeInfo->sum(zero,
                              (char *)b->coeffs + i * b->typeInfo->size,
                              (char *)result->coeffs + i * result->typeInfo->size);
         else
-            a->typeInfo->add((char *)a->coeffs + i * a->typeInfo->size,
+            a->typeInfo->sum((char *)a->coeffs + i * a->typeInfo->size,
                              zero,
                              (char *)result->coeffs + i * result->typeInfo->size);
     }
@@ -140,7 +140,7 @@ LinearFormErrors evaluateLinearForm(const LinearForm *lf, const void *args, void
         return LINEARFORM_NOT_DEFINED;
     if (lf->n > 0 && args == NULL)
         return LINEARFORM_NOT_DEFINED;
-    if (lf->typeInfo->add == NULL || lf->typeInfo->multiply == NULL)
+    if (lf->typeInfo->sum == NULL || lf->typeInfo->multiply == NULL)
         return OPERATION_NOT_DEFINED;
 
     void *temp = malloc(lf->typeInfo->size);
@@ -156,7 +156,7 @@ LinearFormErrors evaluateLinearForm(const LinearForm *lf, const void *args, void
         const void *arg_i = (const char *)args + (i - 1) * lf->typeInfo->size;
 
         lf->typeInfo->multiply(coeff_i, arg_i, temp);
-        lf->typeInfo->add(result, temp, result);
+        lf->typeInfo->sum(result, temp, result);
     }
 
     free(temp);

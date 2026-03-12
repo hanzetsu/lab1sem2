@@ -4,7 +4,7 @@
 
 static TypeInfo* COMPLEX_TYPE_INFO = NULL;
 
-void complexAdd(const void* arg1, const void* arg2, void* result) {
+void complexSum(const void* arg1, const void* arg2, void* result) {
     const Complex* a = (const Complex*)arg1;
     const Complex* b = (const Complex*)arg2;
     Complex* r = (Complex*)result;
@@ -38,7 +38,25 @@ void complexPrint(const void* data) {
 
 void complexScan(void* data) {
     Complex* c = (Complex*)data;
-    scanf("%lf %lf", &c->real, &c->imag);
+    char next;
+    for (;;)
+    {
+        if (scanf("%lf%lf%c", &c->real, &c->imag, &next) == 3 && (next == '\n' || next == ' '))
+        {
+            if (next == ' ')
+            {
+                int ch;
+                while ((ch = getchar()) != '\n' && ch != EOF);
+            }
+            return;
+        }
+        else
+        {
+            puts("Ошибка: некорректный ввод. Ожидаются два вещественных числа.");
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF);
+        }
+    }
 }
 
 TypeInfo* GetComplexTypeInfo() {
@@ -46,7 +64,7 @@ TypeInfo* GetComplexTypeInfo() {
         COMPLEX_TYPE_INFO = (TypeInfo*)malloc(sizeof(TypeInfo));
         if (COMPLEX_TYPE_INFO) {
             COMPLEX_TYPE_INFO->size = sizeof(Complex);
-            COMPLEX_TYPE_INFO->add = complexAdd;
+            COMPLEX_TYPE_INFO->sum = complexSum;
             COMPLEX_TYPE_INFO->subtract = complexSubtract;
             COMPLEX_TYPE_INFO->multiply = complexMultiply;
             COMPLEX_TYPE_INFO->print = complexPrint;

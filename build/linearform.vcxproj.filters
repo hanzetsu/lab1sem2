@@ -16,6 +16,9 @@
     <ClCompile Include="C:\Users\eduar\OneDrive\Desktop\lab1example\LinearForm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\eduar\OneDrive\Desktop\lab1example\Interface.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\eduar\OneDrive\Desktop\lab1example\CMakeLists.txt" />
