@@ -14,7 +14,6 @@ static int complex_eq(const Complex *a, const Complex *b) {
     return double_eq(a->real, b->real) && double_eq(a->imag, b->imag);
 }
 
-/* Вспомогательные функции для проверки коэффициентов */
 static void check_int_coeffs(const int *expected, const int *actual, uint32_t n) {
     for (uint32_t i = 0; i <= n; i++)
         assert(expected[i] == actual[i]);

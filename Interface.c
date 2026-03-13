@@ -89,7 +89,6 @@ void run_interface()
         {
             printf("Введите коэффициент x_%u: ", j - 1);
             ti->scan((char *)temp + (j - 1) * ti->size);
-            // После ti->scan буфер уже чист, дополнительная очистка не нужна
         }
 
         forms[i] = createLinearForm(ti, temp, n, &operationResult);
