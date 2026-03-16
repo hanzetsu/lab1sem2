@@ -11,7 +11,9 @@ typedef struct {
     uint32_t n;
     TypeInfo* typeInfo;
 } LinearForm;
-
+///
+// F: L -> R
+// LF: LF(lambda x + mu y) = lambda LF(x) + mu LF(y)
 
 LinearForm* createLinearForm(TypeInfo* typeInfo,const void* coeffs, uint32_t n, LinearFormErrors* operationResult);
 void freeLinearForm(LinearForm* lf);
