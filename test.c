@@ -398,7 +398,7 @@ static void test_complex_form_with_n0() {
 }
 
 int main() {
-    puts("Запуск тестов...");
+    puts("Запуск тестов");
 
     puts("\nЦелочисленный тип");
     test_int_sum_with_zero();
