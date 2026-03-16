@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-LinearForm *createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint32_t n, LinearFormErrors *operationResult)
+LinearForm* createLinearForm(TypeInfo *typeInfo, const void *coeffs, uint32_t n, LinearFormErrors *operationResult)
 {
     LinearForm *lf = (LinearForm *)malloc(sizeof(*lf));
     if (lf == NULL)

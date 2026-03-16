@@ -1,4 +1,4 @@
 C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/linearform.dir
 C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/tests.dir
-C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/edit_cache.dir
+C:/Users/eduar/OneDrive/Desktop/lab1example/build/CMakeFiles/rebuild_cache.dir

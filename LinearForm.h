@@ -13,7 +13,7 @@ typedef struct {
 } LinearForm;
 
 
-LinearForm* createLinearForm(TypeInfo* typeInfo, void* coeffs, uint32_t n, LinearFormErrors* operationResult);
+LinearForm* createLinearForm(TypeInfo* typeInfo,const void* coeffs, uint32_t n, LinearFormErrors* operationResult);
 void freeLinearForm(LinearForm* lf);
 LinearFormErrors sumLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
 LinearFormErrors subtractLinearForms(const LinearForm* a, const LinearForm* b, LinearForm* result);
