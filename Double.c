@@ -28,16 +28,14 @@ void doubleScan(void* coeff) {
         {
             if (next == ' ')
             {
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF);
+                fflush(stdin);
             }
             return;
         }
         else
         {
             puts("Ошибка: некорректный ввод. Ожидается вещественное число.");
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
+            fflush(stdin);
         }
     }
 }

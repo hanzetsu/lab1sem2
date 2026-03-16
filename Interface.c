@@ -5,8 +5,7 @@
 #include <stdlib.h>
 
 static void clear_input() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    fflush(stdin);
 }
 
 void run_interface()

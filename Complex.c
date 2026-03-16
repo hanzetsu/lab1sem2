@@ -45,16 +45,14 @@ void complexScan(void* data) {
         {
             if (next == ' ')
             {
-                int ch;
-                while ((ch = getchar()) != '\n' && ch != EOF);
+                fflush(stdin);
             }
             return;
         }
         else
         {
             puts("Ошибка: некорректный ввод. Ожидаются два вещественных числа.");
-            int ch;
-            while ((ch = getchar()) != '\n' && ch != EOF);
+            fflush(stdin);
         }
     }
 }
