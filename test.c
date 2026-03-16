@@ -29,7 +29,6 @@ static void check_complex_coeffs(const Complex *expected, const Complex *actual,
         assert(complex_eq(&expected[i], &actual[i]));
 }
 
-// int
 
 static void test_int_sum_with_zero() {
     puts("  int: сложение с нулевой формой");
@@ -160,7 +159,6 @@ static void test_int_sum_diff_dimensions() {
     freeLinearForm(sum);
 }
 
-//double
 
 static void test_double_sum_with_zero() {
     puts("  double: сложение с нулевой формой");
@@ -267,7 +265,8 @@ static void test_double_form_with_n0() {
 
     freeLinearForm(lf);
 }
-//комплексные
+
+
 static void test_complex_sum_with_zero() {
     puts("  complex: сложение с нулевой формой");
     LinearFormErrors err;
